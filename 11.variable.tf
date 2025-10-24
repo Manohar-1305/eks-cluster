@@ -14,3 +14,10 @@ variable "instance_type" {
   default     = "t2.medium"
 
 }
+
+variable "region" {
+  description = "The regions used"
+  type        = string
+  default     = "ap-south-1"
+
+}
