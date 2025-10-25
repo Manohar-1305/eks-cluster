@@ -35,6 +35,13 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install --update --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli
+# Step 1: Create the AWS configuration script
+cat <<EOF >aws_configure.sh
+export AWS_ACCESS_KEY_ID="access-key"
+export AWS_SECRET_ACCESS_KEY="secret-key"
+export AWS_DEFAULT_REGION="ap-south-1"
+EOF
+
 export AWS_REGION=ap-south-1
 aws eks --region ap-south-1 update-kubeconfig --name Private_EKS_Cluster
 
@@ -60,12 +67,6 @@ else
   exit 1
 fi
 
-# Step 1: Create the AWS configuration script
-cat <<EOF >aws_configure.sh
-export AWS_ACCESS_KEY_ID="access-key"
-export AWS_SECRET_ACCESS_KEY="secret-key"
-export AWS_DEFAULT_REGION="ap-south-1"
-EOF
 
 # Step 2: Make the AWS configuration script executable
 chmod +x aws_configure.sh
