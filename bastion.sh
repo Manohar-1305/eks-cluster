@@ -74,21 +74,8 @@ chmod +x aws_configure.sh
 # Step 3: Source the AWS configuration
 source ./aws_configure.sh
 
-# Step 4: Get the current aws-auth configmap and modify it
-kubectl get configmap aws-auth -n kube-system -o yaml >/tmp/aws-auth.yaml
 
-# Step 5: Add the new role to the configmap (system:masters)
-kubectl patch configmap aws-auth -n kube-system -p "$(
-  cat <<EOF
-{
-  "data": {
-    "mapRoles": "- groups:\n    - system:masters\n  rolearn: arn:aws:iam::787047727908:role/eks-bastion\n  username: eks-bastion"
-  }
-}
-EOF
-)"
-
-# Step 6: Verify the changes by getting the configmap again
+# Step 4: Verify the changes by getting the configmap again
 kubectl get configmap aws-auth -n kube-system -o yaml >cm.yaml
 
 # Step 7: Delete the aws_configure.sh script
