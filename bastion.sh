@@ -75,10 +75,7 @@ chmod +x aws_configure.sh
 source ./aws_configure.sh
 
 
-# Step 4: Verify the changes by getting the configmap again
-kubectl get configmap aws-auth -n kube-system -o yaml >cm.yaml
-
-# Step 7: Delete the aws_configure.sh script
+# Step 4: Delete the aws_configure.sh script
 rm -f aws_configure.sh
 
 echo "Config Updated" >updated.txt
